@@ -2,24 +2,30 @@ module Main where
 
 --import Text.Colour.Code
 
-el :: String -> String -> String -> String
-el color tag content =
-    color <> "<" <> tag <> ">" <> "\ESC[0m" <> content <> color <> "</" <> tag <> ">" <> "\ESC[0m"
+el :: String -> String -> String
+el tag content =
+    "<" <> tag <> ">\n" <> content <> "\n</" <> tag <> ">"
 
 html_ :: String -> String
-html_ content = el "\ESC[95m" "html" (content <> "\n")
+html_ content = el "html" content
 
 head_ :: String -> String
-head_ content = el "\n\ESC[33m" "head" ("\n" <> content)
+head_ content = el "head" content
 
 title_ :: String -> String
-title_ content = el "\ESC[94m" "title" (content)
+title_ content = el "title" ("\ESC[1;90m" <> ("\t" <> content) <> "\ESC[0m")
 
 body_ :: String -> String
-body_ content = "\n\ESC[96m<body>\ESC[0m\n\t" <> content <> "\n\ESC[96m</body>\ESC[0m"
+body_ content = el "body" content
+
+h1_ :: String -> String
+h1_ content = el "h1" content
+
+p_ :: String -> String
+p_ content = el "p" ("\ESC[1;90m" <> ("\t" <> content) <> "\ESC[0m")
 
 makeHtml :: String -> String -> String
-makeHtml title body = html_ (head_ (title_ title) <> body_ body)
+makeHtml title paragraph = html_ (head_ (title_ title) <> "\n" <> body_ (p_ paragraph))
 
 myhtml :: String
 myhtml = makeHtml "My page title" "My page content"
