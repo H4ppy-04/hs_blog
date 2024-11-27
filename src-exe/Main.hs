@@ -2,17 +2,21 @@ module Main where
 
 --import Text.Colour.Code
 
+el :: String -> String -> String -> String
+el color tag content =
+    color <> "<" <> tag <> ">" <> "\ESC[0m" <> content <> color <> "</" <> tag <> ">" <> "\ESC[0m"
+
 html_ :: String -> String
-html_ content = "\n\ESC[95m<html>\ESC[0m\n" <> content <> "\n\ESC[95m</html>\ESC[0m\n"
+html_ content = el "\ESC[95m" "html" (content <> "\n")
 
 head_ :: String -> String
-head_ content = "\n\ESC[33m<head>\ESC[0m" <> content <> "\ESC[33m</head>\ESC[0m\n"
+head_ content = el "\n\ESC[33m" "head" ("\n" <> content)
 
 title_ :: String -> String
-title_ content = "\n\ESC[94m<title>\ESC[0m" <> content <> "\ESC[94m</title>\ESC[0m\n"
+title_ content = el "\ESC[94m" "title" (content)
 
 body_ :: String -> String
-body_ content = "\n\ESC[96m<body>\ESC[0m\n\t" <> content <> "\n\ESC[96m</body>\ESC[0m\n"
+body_ content = "\n\ESC[96m<body>\ESC[0m\n\t" <> content <> "\n\ESC[96m</body>\ESC[0m"
 
 makeHtml :: String -> String -> String
 makeHtml title body = html_ (head_ (title_ title) <> body_ body)
