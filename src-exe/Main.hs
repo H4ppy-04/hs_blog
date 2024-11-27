@@ -1,5 +1,15 @@
 module Main where
 
+-- newtype <type-name> = <constructor> <existing-type>
+newtype Html = Html String
+newtype Structure = Structure String
+
+extractStructureString :: Structure -> String
+extractStructureString (Structure str) = str
+
+extractHtmlString :: Html -> String
+extractHtmlString (Html str) = str
+
 el :: String -> String -> String
 el tag content =
     "<" <> tag <> ">\n" <> content <> "\n</" <> tag <> ">"
