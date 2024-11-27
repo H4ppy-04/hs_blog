@@ -1,16 +1,4 @@
-module Main where
-
-newtype Html = MakeHtml String
-newtype Structure = MakeStructure String
-
-extractStructureString :: Structure -> (String)
-extractStructureString = \(MakeStructure str) -> str
-
-extractHtmlString :: Html -> (String)
-extractHtmlString = \(MakeHtml str) -> str
-
-append_ :: Structure -> Structure -> Structure
-append_ (MakeStructure a) (MakeStructure b) = MakeStructure (a <> b)
+module Markdown where
 
 el :: String -> (String -> String)
 el = \tag -> \content ->
@@ -33,13 +21,6 @@ h1_ = \content -> el "h1" $ "\ESC[1;90m" <> ("\t" <> content) <> "\ESC[0m"
 
 p_ :: String -> (String)
 p_ = \content -> el "p" $ "\ESC[1;90m" <> ("\t" <> content) <> "\ESC[0m"
-
-printStructure :: Structure -> String
-printStructure (MakeStructure a) = a
-
-main :: IO()
-main = do
-    putStrLn myhtml
 
 myhtml :: (String)
 myhtml =
