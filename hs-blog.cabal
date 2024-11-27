@@ -2,6 +2,8 @@ cabal-version:   3.0
 name:            hs-blog
 version:         0.1.0.0
 license:         GPL-2.0-only
+description:     TODO: description
+synopsis:        TODO: synopsis
 license-file:    LICENSE
 maintainer:      joshuarose@gmx.com
 author:          Joshua Rose
